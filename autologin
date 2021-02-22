@@ -47,7 +47,7 @@ function logout(){
 		--cookie-jar $cok -b $cok
 }
 
-for i in {1..5}
+for i in 1 2 3 4 5 6 7 8 9 10
 do
 	logout
 	curl -s --connect-timeout 5 'https://www.google.com' &> /dev/null
@@ -62,7 +62,7 @@ do
 	fi
 done
 
-for i in {1..5}
+for i in 1 2 3 4 5 6 7 8 9 10
 do
 	login
 	curl -s --connect-timeout 5 'https://www.google.com' &> /dev/null
