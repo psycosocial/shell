@@ -14,7 +14,7 @@ gwid=$(uci get auto.setting.gw_id)
 
 function login(){
 	curl -s -X POST \
-		--url 'https://welcome2.wifi.id/authnew/login/check_login.php?ipc='$ipwan'&gw_id='$gwid'&mac='$mac'&redirect=&wlan=GSGSK00715/TLK-WI32358556-0001:@wifi.id' \
+		--url 'https://welcome2.wifi.id/authnew/login/check_login.php?ipc='$ipwan'&gw_id='$gwid'&mac='$mac'&redirect=&wlan=' \
 		-H 'Host: welcome2.wifi.id' \
 		-H 'Accept: application/json, text/javascript, */*; q=0.01' \
 		-H 'dnt: 1' \
@@ -25,7 +25,7 @@ function login(){
 		-H 'Sec-Fetch-Site: same-origin' \
 		-H 'Sec-Fetch-Mode: cors' \
 		-H 'Sec-Fetch-Dest: empty' \
-		-H 'Referer: https://welcome2.wifi.id/login/?gw_id='$gwid'&client_mac='$mac'&wlan=GSGSK00715/TLK-WI32358556-0001:@wifi.id&sessionid=' \
+		-H 'Referer: https://welcome2.wifi.id/login/?gw_id='$gwid'&client_mac='$mac'&wlan=&sessionid=' \
 		-H 'Accept-Encoding: gzip, deflate, br' \
 		-H 'Accept-Language: id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7' \
 		-d 'username='$user'&password='$pass'&landURL=' \
