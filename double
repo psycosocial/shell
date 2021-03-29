@@ -46,6 +46,7 @@ do
 		logger "Login Akun 1"
 		login \$user1 \$pass1
 		sleep 5
+                rm \$cok
 		curl -s --connect-timeout 5 'https://www.google.com' &> /dev/null
 		if [[ \$? -eq 0 ]]; then
 			echo "Connected ..."
@@ -56,10 +57,10 @@ do
 			logger "Login Akun 2"
 			login \$user2 \$pass2
 			sleep 5
+                        rm \$cok
 		fi
 	fi
 done
-rm \$cok
 
 EOF
 
@@ -129,6 +130,7 @@ do
 	echo "Login Akun 1"
 	logger "Login Akun 1"
 	login \$user1 \$pass1
+        rm \$cok
 	curl -s --connect-timeout 5 'https://www.google.com' &> /dev/null
 	if [[ \$? -eq 0 ]]; then
 		echo "Login Sukses ..."
@@ -141,6 +143,7 @@ do
 		logger "Login Akun 2"
 		sleep 5
 		login \$user2 \$pass2
+                rm \$cok
 		curl -s --connect-timeout 5 'https://www.google.com' &> /dev/null
 		if [[ \$? -eq 0 ]]; then
 			echo "Login Sukses ..."
@@ -153,7 +156,6 @@ do
 		fi
 	fi
 done
-rm \$cok
 
 EOF
 
