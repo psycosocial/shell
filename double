@@ -3,20 +3,20 @@ case $1 in
 "install")
 opkg update
 
-cat > /root/cek << EOF
+cat > /root/cek << \EOF
 #!/bin/sh
-ipwan=\$(ifconfig | grep -A 2 'wlan0' | awk '/inet addr/{print substr(\$2,6)}')
-mac=\$(ifconfig | grep -A 1 'wlan0' | awk '/^[a-z]/ { mac=\$NF; next } /inet addr:/ { print mac }')
+ipwan=$(ifconfig | grep -A 2 'wlan0' | awk '/inet addr/{print substr($2,6)}')
+mac=$(ifconfig | grep -A 1 'wlan0' | awk '/^[a-z]/ { mac=$NF; next } /inet addr:/ { print mac }')
 cok='cookie.txt'
-user1=\$(uci get auto.setting.user1)
-user2=\$(uci get auto.setting.user2)
-pass1=\$(uci get auto.setting.pass1)
-pass2=\$(uci get auto.setting.pass2)
-gwid=\$(uci get auto.setting.gw_id)
+user1=$(uci get auto.setting.user1)
+user2=$(uci get auto.setting.user2)
+pass1=$(uci get auto.setting.pass1)
+pass2=$(uci get auto.setting.pass2)
+gwid=$(uci get auto.setting.gw_id)
 
 function login(){
 	curl -s -X POST \
-		--url 'https://welcome2.wifi.id/authnew/login/check_login.php?ipc='\$ipwan'&gw_id='\$gwid'&mac='\$mac'&redirect=&wlan=' \
+		--url 'https://welcome2.wifi.id/authnew/login/check_login.php?ipc='$ipwan'&gw_id='$gwid'&mac='$mac'&redirect=&wlan=' \
 		-H 'Host: welcome2.wifi.id' \
 		-H 'Accept: application/json, text/javascript, */*; q=0.01' \
 		-H 'dnt: 1' \
@@ -27,37 +27,37 @@ function login(){
 		-H 'Sec-Fetch-Site: same-origin' \
 		-H 'Sec-Fetch-Mode: cors' \
 		-H 'Sec-Fetch-Dest: empty' \
-		-H 'Referer: https://welcome2.wifi.id/login/?gw_id='\$gwid'&client_mac='\$mac'&wlan=&sessionid=' \
+		-H 'Referer: https://welcome2.wifi.id/login/?gw_id='$gwid'&client_mac='$mac'&wlan=&sessionid=' \
 		-H 'Accept-Encoding: gzip, deflate, br' \
 		-H 'Accept-Language: id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7' \
-		-d 'username='\$1'&password='\$2'&landURL=' \
-		--cookie-jar \$cok -b \$cok
+		-d 'username='$1'&password='$2'&landURL=' \
+		--cookie-jar $cok -b $cok
 }
 
 for i in 1 2 3 4 5 6 7 8 9 10
 do
 	curl -s --connect-timeout 5 'https://www.google.com' &> /dev/null
-	if [[ \$? -eq 0 ]]; then
+	if [[ $? -eq 0 ]]; then
 		echo "Connected ..."
 		logger "Connected ..."
 		break
 	else
 		echo "Login Akun 1"
 		logger "Login Akun 1"
-		login \$user1 \$pass1
+		login $user1 $pass1
 		sleep 5
-                rm \$cok
+                rm $cok
 		curl -s --connect-timeout 5 'https://www.google.com' &> /dev/null
-		if [[ \$? -eq 0 ]]; then
+		if [[ $? -eq 0 ]]; then
 			echo "Connected ..."
 			logger "Connected ..."
 			break
 		else
 			echo "Login Akun 2"
 			logger "Login Akun 2"
-			login \$user2 \$pass2
+			login $user2 $pass2
 			sleep 5
-                        rm \$cok
+                        rm $cok
 		fi
 	fi
 done
@@ -65,20 +65,20 @@ done
 EOF
 
 
-cat > /root/auto << EOF
+cat > /root/auto << \EOF
 #!/bin/sh
-ipwan=\$(ifconfig | grep -A 2 'wlan0' | awk '/inet addr/{print substr(\$2,6)}')
-mac=\$(ifconfig | grep -A 1 'wlan0' | awk '/^[a-z]/ { mac=\$NF; next } /inet addr:/ { print mac }')
+ipwan=$(ifconfig | grep -A 2 'wlan0' | awk '/inet addr/{print substr($2,6)}')
+mac=$(ifconfig | grep -A 1 'wlan0' | awk '/^[a-z]/ { mac=$NF; next } /inet addr:/ { print mac }')
 cok='cookie.txt'
-user1=\$(uci get auto.setting.user1)
-user2=\$(uci get auto.setting.user2)
-pass1=\$(uci get auto.setting.pass1)
-pass2=\$(uci get auto.setting.pass2)
-gwid=\$(uci get auto.setting.gw_id)
+user1=$(uci get auto.setting.user1)
+user2=$(uci get auto.setting.user2)
+pass1=$(uci get auto.setting.pass1)
+pass2=$(uci get auto.setting.pass2)
+gwid=$(uci get auto.setting.gw_id)
 
 function login(){
 	curl -s -X POST \
-		--url 'https://welcome2.wifi.id/authnew/login/check_login.php?ipc='\$ipwan'&gw_id='\$gwid'&mac='\$mac'&redirect=&wlan=' \
+		--url 'https://welcome2.wifi.id/authnew/login/check_login.php?ipc='$ipwan'&gw_id='$gwid'&mac='$mac'&redirect=&wlan=' \
 		-H 'Host: welcome2.wifi.id' \
 		-H 'Accept: application/json, text/javascript, */*; q=0.01' \
 		-H 'X-Requested-With: XMLHttpRequest' \
@@ -88,11 +88,11 @@ function login(){
 		-H 'Sec-Fetch-Site: same-origin' \
 		-H 'Sec-Fetch-Mode: cors' \
 		-H 'Sec-Fetch-Dest: empty' \
-		-H 'Referer: https://welcome2.wifi.id/login/?gw_id='\$gwid'&client_mac='\$mac'&wlan=&sessionid=' \
+		-H 'Referer: https://welcome2.wifi.id/login/?gw_id='$gwid'&client_mac='$mac'&wlan=&sessionid=' \
 		-H 'Accept-Encoding: gzip, deflate, br' \
 		-H 'Accept-Language: id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7' \
-		-d 'username='\$1'&password='\$2'&landURL=' \
-		--cookie-jar \$cok -b \$cok
+		-d 'username='$1'&password='$2'&landURL=' \
+		--cookie-jar $cok -b $cok
 }
 
 function logout(){
@@ -107,14 +107,14 @@ function logout(){
         -H 'Referer: https://logout.wifi.id' \
         -H 'Accept-Encoding: gzip, deflate, br' \
         -H 'Accept-Language: id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7' \
-        --cookie-jar \$cok -b \$cok
+        --cookie-jar $cok -b $cok
 }
 
 for i in 1 2 3 4 5 6 7 8 9 10
 do
 	logout
 	curl -s --connect-timeout 5 'https://www.google.com' &> /dev/null
-	if [[ \$? -eq 0 ]]; then
+	if [[ $? -eq 0 ]]; then
 		echo "Logout Gagal ..."
 		logger "Logout Gagal ..."
 	else
@@ -129,10 +129,10 @@ for i in 1 2 3 4 5 6 7 8 9 10
 do
 	echo "Login Akun 1"
 	logger "Login Akun 1"
-	login \$user1 \$pass1
-        rm \$cok
+	login $user1 $pass1
+        rm $cok
 	curl -s --connect-timeout 5 'https://www.google.com' &> /dev/null
-	if [[ \$? -eq 0 ]]; then
+	if [[ $? -eq 0 ]]; then
 		echo "Login Sukses ..."
 		logger "Login Sukses ..."
 		break
@@ -142,10 +142,10 @@ do
 		echo "Login Akun 2"
 		logger "Login Akun 2"
 		sleep 5
-		login \$user2 \$pass2
-                rm \$cok
+		login $user2 $pass2
+                rm $cok
 		curl -s --connect-timeout 5 'https://www.google.com' &> /dev/null
-		if [[ \$? -eq 0 ]]; then
+		if [[ $? -eq 0 ]]; then
 			echo "Login Sukses ..."
 			logger "Login Sukses ..."
 			break
