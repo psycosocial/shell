@@ -303,7 +303,7 @@ LABEL/INPUT
 	border-radius: 4px;
 	padding-left: 4px;
 }
-.gwid {
+.gw_id {
 	float: left;
 	margin-left: 12px;
 	width: auto;
@@ -433,7 +433,7 @@ echo "<div class=main-box>
 <div class=label>Username 2 :</div><input type=\"text\" id=\"user1\" name=\"user2\" class=\"text\" value=\"\$USER2\"><br>
 <div class=label>Password 2 :</div><input type=\"password\" id=\"pass2\" name=\"pass2\" class=\"textp\" value=\"\$PASS2\"><input type=\"checkbox\" onclick=\"myPASS2()\"><br><br>
 <div class=label>GW ID :</div>
-<div class=\"gwid\"><select id=\"gwid\" name=\"gwid\">
+<div class=\"gw_id\"><select id=\"gw_id\" name=\"gw_id\">
 <option value=\"\$GWID\">\$GWID</option>
 <option value=\"WAG-D1-TLK\">WAG-D1-TLK</option>
 <option value=\"WAG-D1-PBR\">WAG-D1-PBR</option>
