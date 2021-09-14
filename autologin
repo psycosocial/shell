@@ -43,7 +43,7 @@ do
 		echo "Mencoba Login ..."
 		logger "Mencoba Login ..."
 		login
-		sleep 5
+		sleep 10
 		rm $cok
 	fi
 done
@@ -104,7 +104,7 @@ do
 	else
 		echo "Logout Sukses ..."
 		logger "Logout Sukses ..."
-		sleep 10
+		sleep 15
 		break
 	fi
 done
@@ -121,7 +121,7 @@ do
 	else
 		echo "Login Gagal ..."
 		logger "Login Gagal ..."
-		sleep 5
+		sleep 10
 	fi
 done
 
